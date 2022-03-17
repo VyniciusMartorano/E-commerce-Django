@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load value_filter %}
+
+{% block titulo %}Carrinho | {% endblock %}
+
+{% block conteudo %}
+
+
+
+{% if carrinho %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/custom/css/style.css">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+    <main class="container mt-4 mb-4">
+        <div class="row mt-3">
+            <div class="col">
+                <h3>Carrinho de compras</h3>
+                <p class="lead">Os produtos, quantidades e preços que você escolheu.</p>
+
+                {% include 'parciais/_carrinho.html' %}
+            </div>
+        </div>
+
+
+
+        <div class="row mt-3">
+            <div class="col-lg">
+                <p class='lead'>Total no carrinho</p>
+
+                <div class='table-responsive'>
+                    <table class="table">
+                        <tr>
+                            <td class="font-weight-bold">Total</td>
+                            <td>{{ carrinho|cart_totals|price_filter }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg mt-auto">
+                {% if request.user.is_authenticated %}
+                <a class="btn btn-lg btn-block btn-primary" href="{% url 'produto:resumodacompra' %}">
+                    Comprar
+                </a>
+                {% else %}
+                <a class="btn btn-lg btn-block btn-primary" href="{% url 'perfil:criar' %}">
+                    Entrar ou cadastrar e comprar
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+    </main>
+    <script src="assets/bootstrap/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="assets/bootstrap/js/popper.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script defer src="assets/font-awesome/js/all.js"></script>
+    <script src="assets/custom/js/scripts.js"></script>
+</body>
+</html>
+
+{% else %}
+
+<div class="row mt-3">
+    <div class="col">
+        <h3>Carrinho Vazio</h3>
+        <p class="lead">Não há produtos no seu carrinho</p>
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}
+
