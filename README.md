@@ -6,3 +6,7 @@ Open the application in terminal typing:
 -> python manage.py runserver
 
 then just click on the link
+install dependences
+pillow,
+django, 
+django-crispy-forms
